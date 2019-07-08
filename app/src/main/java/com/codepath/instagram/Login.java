@@ -14,7 +14,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private EditText usernameInput;
     private EditText passwordInput;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             loginToSignup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final Intent loginToSignup = new Intent(MainActivity.this, SignUp.class);
+                    final Intent loginToSignup = new Intent(Login.this, SignUp.class);
                     startActivity(loginToSignup);
                     finish();
                 }
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.e("LoginActivity", "Login error");
-                    Toast.makeText(MainActivity.this, "Login credentials incorrect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Login credentials incorrect", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                     finish();
                 }
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginToHome() {
-        final Intent loginToHome = new Intent(MainActivity.this, Home.class);
+        final Intent loginToHome = new Intent(Login.this, Home.class);
         startActivity(loginToHome);
     }
 

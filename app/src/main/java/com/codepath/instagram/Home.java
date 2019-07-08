@@ -24,7 +24,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                Intent homeToLogin = new Intent(Home.this, MainActivity.class);
+                Intent homeToLogin = new Intent(Home.this, Login.class);
                 startActivity(homeToLogin);
             }
         });
