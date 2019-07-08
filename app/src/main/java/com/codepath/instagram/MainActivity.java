@@ -24,31 +24,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            loginToHome();
+        } else {
+            setContentView(R.layout.activity_main);
 
-        usernameInput = (EditText) findViewById(R.id.etLoginUsername);
-        passwordInput = (EditText) findViewById(R.id.etLoginPassword);
-        loginBtn = findViewById(R.id.btnLogin);
-        loginToSignup = findViewById(R.id.btnLoginToSignup);
+            usernameInput = (EditText) findViewById(R.id.etLoginUsername);
+            passwordInput = (EditText) findViewById(R.id.etLoginPassword);
+            loginBtn = findViewById(R.id.btnLogin);
+            loginToSignup = findViewById(R.id.btnLoginToSignup);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String username = usernameInput.getText().toString();
+                    final String password = passwordInput.getText().toString();
 
-                login(username, password);
-            }
-        });
+                    login(username, password);
+                }
+            });
 
-        loginToSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent loginToSignup = new Intent(MainActivity.this, SignUp.class);
-                startActivity(loginToSignup);
-                finish();
-            }
-        });
+            loginToSignup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent loginToSignup = new Intent(MainActivity.this, SignUp.class);
+                    startActivity(loginToSignup);
+                    finish();
+                }
+            });
+        }
     }
 
     private void login(String username, String password) {
@@ -57,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("LoginActivity", "Login successful");
-                    final Intent loginToHome = new Intent(MainActivity.this, Home.class);
-                    startActivity(loginToHome);
+                    loginToHome();
                     finish();
                 } else {
                     Log.e("LoginActivity", "Login error");
@@ -68,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loginToHome() {
+        final Intent loginToHome = new Intent(MainActivity.this, Home.class);
+        startActivity(loginToHome);
     }
 
 }
