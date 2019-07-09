@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codepath.instagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   Login allows users to sign in, or sign up for a new account.
+   Accounts are hosted on via Heroku.
+ */
 public class Login extends AppCompatActivity {
 
     private EditText usernameInput;
@@ -29,7 +34,7 @@ public class Login extends AppCompatActivity {
             loginToHome();
         } else {
             setContentView(R.layout.activity_main);
-
+            getSupportActionBar().hide();
             usernameInput = (EditText) findViewById(R.id.etLoginUsername);
             passwordInput = (EditText) findViewById(R.id.etLoginPassword);
             loginBtn = findViewById(R.id.btnLogin);

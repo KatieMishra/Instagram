@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.codepath.instagram.Models.Post;
+import com.codepath.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -27,6 +29,10 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   Home is the main screen of the app, which allows users to compose
+   and post to Instagram. Users can also logout of the app.
+ */
 public class Home extends AppCompatActivity {
 
     private Button logout;

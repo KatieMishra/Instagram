@@ -1,10 +1,13 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   Post defines the elements of a post and getters and setters for each item.
+ */
 @ParseClassName("Post")
 public class Post extends ParseObject {
 

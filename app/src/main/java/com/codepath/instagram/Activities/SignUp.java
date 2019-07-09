@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codepath.instagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   Signup allows users to make a new account.
+ */
 public class SignUp extends AppCompatActivity {
 
     private EditText usernameInput;

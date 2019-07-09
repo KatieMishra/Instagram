@@ -1,10 +1,13 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Models;
 
 import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   ParseApp keeps track of Parse keys and urls for server-client relationship.
+ */
 public class ParseApp extends Application {
     @Override
     public void onCreate() {
