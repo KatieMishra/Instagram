@@ -1,6 +1,7 @@
 package com.codepath.instagram.Fragments;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.codepath.instagram.Models.Post;
 import com.parse.FindCallback;
@@ -11,6 +12,8 @@ import com.parse.ParseUser;
 import java.util.List;
 
 public class ProfileFragment extends PostFragment {
+
+    private TextView tvUsername;
 
     @Override
     protected void queryPosts() {

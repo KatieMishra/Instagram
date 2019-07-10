@@ -1,6 +1,7 @@
 package com.codepath.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.codepath.instagram.Activities.PostDetails;
 import com.codepath.instagram.Models.Post;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,7 +57,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         return posts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView tvHandle;
         private ImageView ivImage;
@@ -61,16 +66,34 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvHandle2;
         private TextView tvTime;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             tvHandle = itemView.findViewById(R.id.tvUser);
             ivImage = itemView.findViewById(R.id.ivPost);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvHandle2 = itemView.findViewById(R.id.tvUser2);
             tvTime = itemView.findViewById(R.id.tvHomeTime);
-            //add itemView's OnClickListener
-            //itemView.setOnClickListener(PostFragment.class);
 
+            //add itemView's OnClickListener
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            // get item position
+            int position = getAdapterPosition();
+            // make sure the position exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                // get the movie at the position, this won't work if the class is static
+                Post post = posts.get(position);
+                // create intent for the new activity
+                Intent intent = new Intent(context, PostDetails.class);
+                //serialize the movie using parceler, use its short name as a key
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                // show the activity
+                context.startActivity(intent);
+            }
         }
 
         //add in data for specific user's post
@@ -98,22 +121,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    /*@Override
-    public void onClick(View v) {
-        // get item position
-        int position = getAdapterPosition();
-        // make sure the position exists in the view
-        if (position != RecyclerView.NO_POSITION) {
-            // get the movie at the position, this won't work if the class is static
-            Post post = posts.get(position);
-            // create intent for the new activity
-            Intent intent = new Intent(context, PostDetails.class);
-            //serialize the movie using parceler, use its short name as a key
-            intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(post));
-            // show the activity
-            context.startActivity(intent);
-        }
-    }*/
+
 
     // return how long ago relative to current time tweet was sent
     public String getRelativeTimeAgo(String rawJsonDate) {
