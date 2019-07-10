@@ -23,14 +23,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivPost"
+        android:id="@+id/ivDetailsImage"
         android:layout_width="0dp"
         android:layout_height="350dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHandle"
         app:srcCompat="@color/colorAccent" />
 
     <TextView
@@ -42,11 +42,11 @@
         android:layout_marginTop="8dp"
         android:text="Caption"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvUser2"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailsHandle2"
         app:layout_constraintTop_toBottomOf="@+id/btnComment" />
 
     <TextView
-        android:id="@+id/tvUser2"
+        android:id="@+id/tvDetailsHandle2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="12dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUser2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHandle2" />
 
     <ImageButton
         android:id="@+id/btnLike"
@@ -77,7 +77,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/solid_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/ufi_heart" />
 
     <ImageButton
@@ -89,7 +89,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/solid_white"
         app:layout_constraintStart_toEndOf="@+id/btnLike"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/ufi_comment" />
 
     <ImageButton
@@ -101,7 +101,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/solid_white"
         app:layout_constraintStart_toEndOf="@+id/btnComment"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/direct" />
 
     <ImageButton
@@ -113,6 +113,6 @@
         android:layout_marginRight="8dp"
         android:background="@color/solid_white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/ufi_save" />
 </androidx.constraintlayout.widget.ConstraintLayout>

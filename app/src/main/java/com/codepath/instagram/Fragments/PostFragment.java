@@ -71,16 +71,16 @@ public class PostFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         // Retain an instance so that you can call `resetState()` for fresh searches
-        /*scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        /*scrollListener = new EndlessRecyclerViewScrollListener(rvPosts.get) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
                 queryPosts();
             }
-        };
+        };*/
         // Adds the scroll listener to RecyclerView
-        rvPosts.addOnScrollListener(scrollListener);*/
+        //rvPosts.addOnScrollListener(scrollListener);
 
 
         //update posts

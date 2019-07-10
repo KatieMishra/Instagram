@@ -7,7 +7,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
+import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,16 +24,30 @@ public class PostDetails extends AppCompatActivity {
     private ImageView ivImage;
     private TextView tvTime;
     private TextView tvCaption;
+    private TextView tvHandle2;
+    private Post post;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
+
+        //unwrap the post passed in via intent, using its simple name as a key
+        post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+
         tvHandle = (TextView) findViewById(R.id.tvDetailsHandle);
+        tvHandle2 = (TextView) findViewById(R.id.tvDetailsHandle2);
         tvTime = (TextView) findViewById(R.id.tvDetailsTime);
         tvCaption = (TextView) findViewById(R.id.tvDetailsCaption);
-        //TODO add picture
-        //tvTime.setText(getRelativeTimeAgo());
+        image = (ImageView) findViewById(R.id.ivDetailsImage);
+
+        ParseFile imageToLoad = post.getImage();
+        tvHandle.setText(post.getUser().getUsername());
+        tvCaption.setText(post.getCaption());
+        tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
+        tvHandle2.setText(post.getUser().getUsername());
+        Glide.with(this).load(imageToLoad.getUrl()).into(image);
     }
 
     // return how long ago relative to current time tweet was sent

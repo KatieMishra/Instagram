@@ -1,6 +1,7 @@
 package com.codepath.instagram.Fragments;
 
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.codepath.instagram.Models.Post;
@@ -14,6 +15,7 @@ import java.util.List;
 public class ProfileFragment extends PostFragment {
 
     private TextView tvUsername;
+    private Button logout;
 
     @Override
     protected void queryPosts() {

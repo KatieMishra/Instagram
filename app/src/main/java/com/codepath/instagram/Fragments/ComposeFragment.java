@@ -1,5 +1,6 @@
 package com.codepath.instagram.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,8 @@ public class ComposeFragment extends Fragment {
     // Instance of the progress action-view
     MenuItem miActionProgressItem;
 
+    private ProgressDialog LoadingBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class ComposeFragment extends Fragment {
         btnPost = view.findViewById(R.id.btnPost);
         postImg = view.findViewById(R.id.postImg);
         etCaption = view.findViewById(R.id.etCaption);
+
+        LoadingBar= new ProgressDialog(getContext());
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,24 +116,6 @@ public class ComposeFragment extends Fragment {
         });
     }
 
-    /*@Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // Store instance of the menu item containing progress
-        miActionProgressItem = menu.findItem(R.id.miActionProgress);
-        // Return to finish
-        return super.onPrepareOptionsMenu(menu);
-    }*/
-
-    public void showProgressBar() {
-        // Show progress item
-        miActionProgressItem.setVisible(true);
-    }
-
-    public void hideProgressBar() {
-        // Hide progress item
-        miActionProgressItem.setVisible(false);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the code is the same as the one we started the activity with
@@ -162,8 +149,15 @@ public class ComposeFragment extends Fragment {
         return file;
     }
 
+    private void showLoadingBar() {
+        LoadingBar.setTitle("Posting to Instagram");
+        LoadingBar.setMessage("Give us a moment! Your post will be live soon.");
+        LoadingBar.setCanceledOnTouchOutside(true);
+        LoadingBar.show();
+    }
+
     private void savePost(String caption, ParseUser user, File photoFile) {
-        showProgressBar();
+        showLoadingBar();
         Log.d(TAG, "in post");
         Post post = new Post();
         post.setCaption(caption);
@@ -180,8 +174,8 @@ public class ComposeFragment extends Fragment {
                 Log.d(TAG, "Success!!");
                 etCaption.setText("");
                 postImg.setImageResource(0);
+                LoadingBar.hide();
             }
         });
-        hideProgressBar();
     }
 }

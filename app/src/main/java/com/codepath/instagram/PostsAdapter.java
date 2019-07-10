@@ -6,6 +6,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,18 +66,23 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvCaption;
         private TextView tvHandle2;
         private TextView tvTime;
+        private TextView tvNumLikes;
+        private Button btnLike;
+        private Button btnComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvHandle = itemView.findViewById(R.id.tvUser);
-            ivImage = itemView.findViewById(R.id.ivPost);
+            ivImage = itemView.findViewById(R.id.ivDetailsImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
-            tvHandle2 = itemView.findViewById(R.id.tvUser2);
+            tvHandle2 = itemView.findViewById(R.id.tvDetailsHandle2);
             tvTime = itemView.findViewById(R.id.tvHomeTime);
+            tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
+            //btnLike = itemView.findViewById(R.id.btnLike);
+            //btnComment = itemView.findViewById(R.id.btnComment);
 
             //add itemView's OnClickListener
             itemView.setOnClickListener(this);
-
         }
 
         @Override
@@ -97,15 +103,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
         //add in data for specific user's post
-        public void bind(Post post) {
+        public void bind(final Post post) {
             tvHandle.setText(post.getUser().getUsername());
             tvHandle2.setText(post.getUser().getUsername());
             tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
+            tvNumLikes.setText(post.getNumLikes());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
             tvCaption.setText(post.getCaption());
+            /*btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    post.increaseNumLikes();
+                }
+            });*/
         }
     }
 
