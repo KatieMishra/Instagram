@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 public class ProfileFragment extends PostFragment {
+
     @Override
     protected void queryPosts() {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
