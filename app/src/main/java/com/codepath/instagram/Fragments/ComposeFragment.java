@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +45,8 @@ public class ComposeFragment extends Fragment {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     private File photoFile;
+    // Instance of the progress action-view
+    MenuItem miActionProgressItem;
 
     @Nullable
     @Override
@@ -108,6 +111,24 @@ public class ComposeFragment extends Fragment {
         });
     }
 
+    /*@Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }*/
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the code is the same as the one we started the activity with
@@ -142,6 +163,7 @@ public class ComposeFragment extends Fragment {
     }
 
     private void savePost(String caption, ParseUser user, File photoFile) {
+        showProgressBar();
         Log.d(TAG, "in post");
         Post post = new Post();
         post.setCaption(caption);
@@ -160,5 +182,6 @@ public class ComposeFragment extends Fragment {
                 postImg.setImageResource(0);
             }
         });
+        hideProgressBar();
     }
 }

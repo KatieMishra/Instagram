@@ -30,7 +30,8 @@ public class PostFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> mPosts;
     private SwipeRefreshLayout swipeContainer;
-
+    // Store a member variable for the listener
+    //private EndlessRecyclerViewScrollListener scrollListener;
 
     // onCreateView to inflate the view
     @Nullable
@@ -66,11 +67,21 @@ public class PostFragment extends Fragment {
             }
         });
         // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+       /* swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                queryPosts();
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);*/
 
 
         //update posts

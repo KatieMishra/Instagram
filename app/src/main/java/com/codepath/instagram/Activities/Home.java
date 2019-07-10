@@ -50,8 +50,7 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
-        // Set default selection
-        //TODO change default to be feed
-        bottomNavigationView.setSelectedItemId(R.id.action_compose);
+        // Set feed to be default selection
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 }
