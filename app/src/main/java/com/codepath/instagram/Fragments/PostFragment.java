@@ -88,8 +88,7 @@ public class PostFragment extends Fragment {
             }
         };
         // Adds the scroll listener to RecyclerView
-        //rvPosts.addOnScrollListener(scrollListener);
-
+        rvPosts.addOnScrollListener(scrollListener);
 
         //update posts
         queryPosts();

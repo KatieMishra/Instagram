@@ -40,6 +40,20 @@ public class Login extends AppCompatActivity {
             loginBtn = findViewById(R.id.btnLogin);
             loginToSignup = findViewById(R.id.btnLoginToSignup);
 
+            usernameInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    usernameInput.setHint("");
+                }
+            });
+
+            passwordInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    passwordInput.setHint("");
+                }
+            });
+
             loginBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

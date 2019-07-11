@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +27,7 @@ import java.util.List;
 
 public class ProfileFragment extends PostFragment {
 
-    private TextView tvUsername;
+    private Button addProfileImage;
     private Button logout;
 
     @Nullable
@@ -41,7 +40,6 @@ public class ProfileFragment extends PostFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        tvUsername = view.findViewById(R.id.tvHandle);
         rvPosts = view.findViewById(R.id.rvProfile);
         //create the data source
         mPosts = new ArrayList<>();

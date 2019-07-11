@@ -18,6 +18,8 @@ import com.codepath.instagram.Activities.PostDetails;
 import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -65,6 +67,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        public static final String KEY_PROFILE_IMAGE = "profileImage";
+
         private TextView tvHandle;
         private ImageView ivImage;
         private TextView tvCaption;
@@ -74,20 +78,28 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvNumComments;
         private ImageButton btnLike;
         private ImageButton btnComment;
+        private ImageView profilePic;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvHandle = itemView.findViewById(R.id.tvUser);
+            tvHandle = itemView.findViewById(R.id.tvDetailsHandle);
             ivImage = itemView.findViewById(R.id.ivDetailsImage);
-            tvCaption = itemView.findViewById(R.id.tvCaption);
+            tvCaption = itemView.findViewById(R.id.tvDetailsCaption);
             tvHandle2 = itemView.findViewById(R.id.tvDetailsHandle2);
-            tvTime = itemView.findViewById(R.id.tvHomeTime);
-            tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
-            tvNumComments = itemView.findViewById(R.id.tvNumComments);
+            tvTime = itemView.findViewById(R.id.tvDetailsTime);
+            tvNumLikes = itemView.findViewById(R.id.tvDetailsNumLikes);
+            tvNumComments = itemView.findViewById(R.id.tvDetailsNumComments);
             btnLike = itemView.findViewById(R.id.btnLike);
+            profilePic = itemView.findViewById(R.id.ivProfileImage);
             //btnComment = itemView.findViewById(R.id.btnComment);
             //add itemView's OnClickListener
             itemView.setOnClickListener(this);
+
+            ParseUser user = ParseUser.getCurrentUser();
+            ParseFile image = user.getParseFile(KEY_PROFILE_IMAGE);
+            if (image != null) {
+                Glide.with(context).load(image.getUrl()).into(profilePic);
+            }
         }
 
         @Override
@@ -123,8 +135,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     btnLike.setImageResource(R.drawable.ufi_heart_active);
-                    post.increaseNumLikes();
-                    tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+                    int position = getAdapterPosition();
+                    Post post = posts.get(position);
+
+                    int curLikes = post.getNumLikes();
+
+                    post.setNumLikes(curLikes  + 1);
+
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(com.parse.ParseException e) {
+                            if (e != null) {
+                                e.printStackTrace();
+                                return;
+                            }
+                        }
+                    });
                     notifyDataSetChanged();
                 }
             });

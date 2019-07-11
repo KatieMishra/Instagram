@@ -31,6 +31,8 @@ public class PostDetails extends AppCompatActivity {
     private TextView tvHandle2;
     private Post post;
     private ImageView image;
+    private TextView tvNumLikes;
+    private TextView tvNumComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +47,16 @@ public class PostDetails extends AppCompatActivity {
         tvTime = (TextView) findViewById(R.id.tvDetailsTime);
         tvCaption = (TextView) findViewById(R.id.tvDetailsCaption);
         image = (ImageView) findViewById(R.id.ivDetailsImage);
+        tvNumComments = (TextView) findViewById(R.id.tvDetailsNumComments);
+        tvNumLikes = (TextView) findViewById(R.id.tvDetailsNumLikes);
 
         ParseFile imageToLoad = post.getImage();
         tvHandle.setText(post.getUser().getUsername());
         tvCaption.setText(post.getCaption());
         tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
         tvHandle2.setText(post.getUser().getUsername());
+        //tvNumComments.setText(post.getNumComments());
+        //tvNumLikes.setText(post.getNumLikes());
         Glide.with(this).load(imageToLoad.getUrl()).into(image);
     }
 

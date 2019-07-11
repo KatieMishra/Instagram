@@ -7,19 +7,18 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvUser"
+        android:id="@+id/tvDetailsHandle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="324dp"
         android:layout_marginRight="324dp"
         android:text="User"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -30,11 +29,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUser"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
         app:srcCompat="@color/colorAccent" />
 
     <TextView
-        android:id="@+id/tvCaption"
+        android:id="@+id/tvDetailsCaption"
         android:layout_width="327dp"
         android:layout_height="21dp"
         android:layout_marginStart="16dp"
@@ -58,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnLike" />
 
     <TextView
-        android:id="@+id/tvHomeTime"
+        android:id="@+id/tvDetailsTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -88,12 +87,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/solid_white"
-        app:layout_constraintStart_toEndOf="@+id/tvNumLikes"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailsNumLikes"
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/ufi_comment" />
 
     <TextView
-        android:id="@+id/tvNumLikes"
+        android:id="@+id/tvDetailsNumLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -104,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage" />
 
     <TextView
-        android:id="@+id/tvNumComments"
+        android:id="@+id/tvDetailsNumComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -113,5 +112,16 @@
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/btnComment"
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage" />
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[2]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
