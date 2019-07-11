@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.codepath.instagram.Activities.Login;
 import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
 import com.parse.ParseException;
@@ -35,9 +34,11 @@ import java.io.File;
 
 import static android.app.Activity.RESULT_OK;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   ComposeFragment allows users to
+ */
 public class ComposeFragment extends Fragment {
 
-    private Button logout;
     private Button btnTakePic;
     private Button btnPost;
     private ImageView postImg;
@@ -60,7 +61,6 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        logout = view.findViewById(R.id.btnLogout);
         btnTakePic = view.findViewById(R.id.btnTakePic);
         btnPost = view.findViewById(R.id.btnPost);
         postImg = view.findViewById(R.id.postImg);
@@ -102,16 +102,6 @@ public class ComposeFragment extends Fragment {
                     // Start the image capture intent to take photo
                     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
                 }
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                Intent homeToLogin = new Intent(getContext(), Login.class);
-                startActivity(homeToLogin);
             }
         });
     }

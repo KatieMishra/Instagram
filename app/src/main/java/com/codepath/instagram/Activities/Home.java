@@ -15,8 +15,8 @@ import com.codepath.instagram.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /* Katie Mishra - FBU 2019 - krmishra@stanford.edu
-   Home is the main screen of the app, which allows users to compose
-   and post to Instagram. Users can also logout of the app.
+   Home implements the tab bar navigation for the app, and serves as the baseline
+   activity on top of which all the fragments are displayed.
  */
 public class Home extends AppCompatActivity {
 
@@ -29,6 +29,10 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setBackgroundColor(getResources().getColor(R.color.grey_1));
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.nav_logo_whiteout);
+        getSupportActionBar().setTitle("");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

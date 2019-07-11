@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.codepath.instagram.Adapters.PostsAdapter;
+import com.codepath.instagram.EndlessRecyclerViewScrollListener;
 import com.codepath.instagram.Models.Post;
-import com.codepath.instagram.PostsAdapter;
 import com.codepath.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -23,15 +24,20 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   PostFragment displays a recycler view with the last 20 posts.
+   Users can scroll to refresh posts.
+ */
 public class PostFragment extends Fragment {
 
     protected  RecyclerView rvPosts;
     public static final String TAG = "PostsFragment";
     protected PostsAdapter adapter;
     protected List<Post> mPosts;
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
+    private int limit;
     // Store a member variable for the listener
-    //private EndlessRecyclerViewScrollListener scrollListener;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     // onCreateView to inflate the view
     @Nullable
@@ -42,6 +48,7 @@ public class PostFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        limit = 20;
         rvPosts = view.findViewById(R.id.rvProfile);
         //create the data source
         mPosts = new ArrayList<>();
@@ -71,14 +78,15 @@ public class PostFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         // Retain an instance so that you can call `resetState()` for fresh searches
-        /*scrollListener = new EndlessRecyclerViewScrollListener(rvPosts.get) {
+        scrollListener = new EndlessRecyclerViewScrollListener(new LinearLayoutManager(getContext())) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
+                limit += 10;
                 queryPosts();
             }
-        };*/
+        };
         // Adds the scroll listener to RecyclerView
         //rvPosts.addOnScrollListener(scrollListener);
 
@@ -91,7 +99,7 @@ public class PostFragment extends Fragment {
     protected void queryPosts() {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
-        postQuery.setLimit(20);
+        postQuery.setLimit(limit);
         postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
 
         postQuery.findInBackground(new FindCallback<Post>() {

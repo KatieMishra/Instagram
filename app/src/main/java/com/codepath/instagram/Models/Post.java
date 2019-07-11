@@ -16,6 +16,8 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_NUM_LIKES = "likes";
+    public static final String KEY_NUM_COMMENTS = "numComments";
+    //public static final JSONArray KEY_NUM_LIKED_BY = "likedBy";
 
     public String getCaption() {
         return getString(KEY_CAPTION);
@@ -41,9 +43,22 @@ public class Post extends ParseObject {
         put(KEY_USER, parseUser);
     }
 
-    public String getNumLikes() {
-        return getString(KEY_NUM_LIKES);
+    public int getNumLikes() {
+        return getInt(KEY_NUM_LIKES);
     }
 
-    public void increaseNumLikes() { put(KEY_NUM_LIKES, Integer.parseInt(getNumLikes())+1); }
+    public void increaseNumLikes() { put(KEY_NUM_LIKES, getNumLikes()+1); }
+
+    public int getNumComments() {
+        return getInt(KEY_NUM_COMMENTS);
+    }
+
+    public void increaseNumComments() { put(KEY_NUM_COMMENTS, getNumComments()+1); }
+
+    /*public int getLikedBy() {
+        return getJSONArray(KEY_NUM_LIKED_BY);
+    }
+
+    public void addLikedBy() { put(KEY_NUM_COMMENTS, getNumComments()+1); }*/
+
 }

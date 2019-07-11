@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,17 +6,17 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.codepath.instagram.Activities.PostDetails;
 import com.codepath.instagram.Models.Post;
+import com.codepath.instagram.R;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -26,11 +26,15 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   PostsAdapter updates all items inside a post, including the user, title, caption,
+   number of likes and comments, relative time posted, and image. It implements an
+   on click listener to open the details activity if a user clicks on a specific post.
+ */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
-    private SwipeRefreshLayout swipeContainer;
 
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -67,8 +71,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvHandle2;
         private TextView tvTime;
         private TextView tvNumLikes;
-        private Button btnLike;
-        private Button btnComment;
+        private TextView tvNumComments;
+        private ImageButton btnLike;
+        private ImageButton btnComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -78,9 +83,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvHandle2 = itemView.findViewById(R.id.tvDetailsHandle2);
             tvTime = itemView.findViewById(R.id.tvHomeTime);
             tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
-            //btnLike = itemView.findViewById(R.id.btnLike);
+            tvNumComments = itemView.findViewById(R.id.tvNumComments);
+            btnLike = itemView.findViewById(R.id.btnLike);
             //btnComment = itemView.findViewById(R.id.btnComment);
-
             //add itemView's OnClickListener
             itemView.setOnClickListener(this);
         }
@@ -107,18 +112,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvHandle.setText(post.getUser().getUsername());
             tvHandle2.setText(post.getUser().getUsername());
             tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
-            tvNumLikes.setText(post.getNumLikes());
+            tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+            tvNumComments.setText(Integer.toString(post.getNumComments()));
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
             tvCaption.setText(post.getCaption());
-            /*btnLike.setOnClickListener(new View.OnClickListener() {
+            btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    btnLike.setImageResource(R.drawable.ufi_heart_active);
                     post.increaseNumLikes();
+                    tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+                    notifyDataSetChanged();
                 }
-            });*/
+            });
         }
     }
 
@@ -134,8 +143,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-
-
     // return how long ago relative to current time tweet was sent
     public String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
@@ -150,7 +157,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return relativeDate;
     }
 }

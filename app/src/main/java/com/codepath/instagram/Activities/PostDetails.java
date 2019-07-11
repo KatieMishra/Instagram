@@ -18,6 +18,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   PostDetails displays a single post in a separate activity,
+   with all the same details as item_post.
+ */
 public class PostDetails extends AppCompatActivity {
 
     private TextView tvHandle;
