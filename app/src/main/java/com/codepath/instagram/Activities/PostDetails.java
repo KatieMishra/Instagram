@@ -25,19 +25,21 @@ import java.util.Locale;
 public class PostDetails extends AppCompatActivity {
 
     private TextView tvHandle;
-    private ImageView ivImage;
     private TextView tvTime;
     private TextView tvCaption;
     private TextView tvHandle2;
     private Post post;
     private ImageView image;
-    private TextView tvNumLikes;
-    private TextView tvNumComments;
+    private TextView tvDetailsNumLikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.nav_logo_whiteout);
+        getSupportActionBar().setTitle("");
 
         //unwrap the post passed in via intent, using its simple name as a key
         post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
@@ -47,16 +49,14 @@ public class PostDetails extends AppCompatActivity {
         tvTime = (TextView) findViewById(R.id.tvDetailsTime);
         tvCaption = (TextView) findViewById(R.id.tvDetailsCaption);
         image = (ImageView) findViewById(R.id.ivDetailsImage);
-        tvNumComments = (TextView) findViewById(R.id.tvDetailsNumComments);
-        tvNumLikes = (TextView) findViewById(R.id.tvDetailsNumLikes);
+        tvDetailsNumLikes = (TextView) findViewById(R.id.tvDetailsNumLikes);
 
         ParseFile imageToLoad = post.getImage();
         tvHandle.setText(post.getUser().getUsername());
         tvCaption.setText(post.getCaption());
         tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
         tvHandle2.setText(post.getUser().getUsername());
-        //tvNumComments.setText(post.getNumComments());
-        //tvNumLikes.setText(post.getNumLikes());
+        tvDetailsNumLikes.setText(Integer.toString(post.getNumLikes()));
         Glide.with(this).load(imageToLoad.getUrl()).into(image);
     }
 
@@ -74,7 +74,6 @@ public class PostDetails extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return relativeDate;
     }
 }

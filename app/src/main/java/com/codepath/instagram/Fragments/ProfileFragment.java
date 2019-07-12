@@ -25,9 +25,11 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Katie Mishra - FBU 2019 - krmishra@stanford.edu
+   ProfileFragment displays posts by the logged in user, and allows the user to log out.
+ */
 public class ProfileFragment extends PostFragment {
 
-    private Button addProfileImage;
     private Button logout;
 
     @Nullable
@@ -49,6 +51,7 @@ public class ProfileFragment extends PostFragment {
         rvPosts.setAdapter(adapter);
         //set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -68,17 +71,6 @@ public class ProfileFragment extends PostFragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        // Retain an instance so that you can call `resetState()` for fresh searches
-        /*scrollListener = new EndlessRecyclerViewScrollListener(rvPosts.get) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                queryPosts();
-            }
-        };*/
-        // Adds the scroll listener to RecyclerView
-        //rvPosts.addOnScrollListener(scrollListener);
 
         logout= view.findViewById(R.id.logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {

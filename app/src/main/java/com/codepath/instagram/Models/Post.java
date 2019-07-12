@@ -5,6 +5,11 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 /* Katie Mishra - FBU 2019 - krmishra@stanford.edu
    Post defines the elements of a post and getters and setters for each item.
  */
@@ -15,9 +20,21 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "Image";
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_AT = "createdAt";
-    public static final String KEY_NUM_LIKES = "likes";
     public static final String KEY_NUM_COMMENTS = "numComments";
     //public static final JSONArray KEY_NUM_LIKED_BY = "likedBy";
+    public JSONArray userLikes() {
+        return getJSONArray("likedBy");
+    }
+
+    public void likePost(ParseUser u) {
+        add("likedBy", u);
+    }
+
+    public void unlikePost(ParseUser currentUser) {
+        ArrayList<ParseUser> users = new ArrayList<>();
+        users.add(currentUser);
+        removeAll("likedBy", users);
+    }
 
     public String getCaption() {
         return getString(KEY_CAPTION);
@@ -44,16 +61,33 @@ public class Post extends ParseObject {
     }
 
     public int getNumLikes() {
-        return getInt(KEY_NUM_LIKES);
+        if (userLikes() == null) return 0;
+        return userLikes().length();
     }
 
-    public void setNumLikes(Integer num) { put(KEY_NUM_LIKES, num); }
+    public boolean isLiked() {
+        JSONArray a = userLikes();
+        if (a != null) {
+            for (int i = 0; i < a.length(); i++) {
+                try {
+                    a.get(i).toString();
+                    if (a.getJSONObject(i).getString("objectId").equals(ParseUser.getCurrentUser().getObjectId())) {
+                        return true;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
 
     public int getNumComments() {
         return getInt(KEY_NUM_COMMENTS);
     }
 
     public void increaseNumComments() { put(KEY_NUM_COMMENTS, getNumComments()+1); }
+
 
     /*public int getLikedBy() {
         return getJSONArray(KEY_NUM_LIKED_BY);

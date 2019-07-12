@@ -47,7 +47,6 @@ public class ComposeFragment extends Fragment {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     private File photoFile;
-    private Button btnUploadProfilePic;
 
     private ProgressDialog LoadingBar;
 
@@ -64,7 +63,6 @@ public class ComposeFragment extends Fragment {
         btnPost = view.findViewById(R.id.btnPost);
         postImg = view.findViewById(R.id.postImg);
         etCaption = view.findViewById(R.id.etCaption);
-        btnUploadProfilePic = view.findViewById(R.id.btnUpdateProfilePic);
 
         LoadingBar= new ProgressDialog(getContext());
 
@@ -78,19 +76,6 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(),"No photo to display!", Toast.LENGTH_SHORT).show();
                 } else {
                     savePost(caption, user, photoFile);
-                }
-            }
-        });
-
-        btnUploadProfilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser user = ParseUser.getCurrentUser();
-                if (photoFile == null || postImg.getDrawable() == null) {
-                    Log.e(TAG, "no photo to submit");
-                    Toast.makeText(getContext(),"Take a profile picture to upload!", Toast.LENGTH_SHORT).show();
-                } else {
-                    uploadProfilePic(user, photoFile);
                 }
             }
         });
@@ -165,7 +150,6 @@ public class ComposeFragment extends Fragment {
         Post post = new Post();
         post.setCaption(caption);
         post.setUser(user);
-        post.setNumLikes(0);
         post.setImage(new ParseFile(photoFile));
         post.saveInBackground(new SaveCallback() {
             @Override
@@ -178,22 +162,6 @@ public class ComposeFragment extends Fragment {
                 Log.d(TAG, "Success!!");
                 etCaption.setText("");
                 postImg.setImageResource(0);
-                LoadingBar.hide();
-            }
-        });
-    }
-
-    private void uploadProfilePic(ParseUser user, File photoFile) {
-        showLoadingBar();
-        Log.d(TAG, "in profile pic");
-        user.put("profileImage", photoFile);
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    e.printStackTrace();
-                    return;
-                }
                 LoadingBar.hide();
             }
         });

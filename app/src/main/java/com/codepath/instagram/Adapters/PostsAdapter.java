@@ -21,6 +21,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONArray;
 import org.parceler.Parcels;
 
 import java.text.ParseException;
@@ -75,10 +76,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvHandle2;
         private TextView tvTime;
         private TextView tvNumLikes;
-        private TextView tvNumComments;
         private ImageButton btnLike;
-        private ImageButton btnComment;
-        private ImageView profilePic;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,18 +86,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvHandle2 = itemView.findViewById(R.id.tvDetailsHandle2);
             tvTime = itemView.findViewById(R.id.tvDetailsTime);
             tvNumLikes = itemView.findViewById(R.id.tvDetailsNumLikes);
-            tvNumComments = itemView.findViewById(R.id.tvDetailsNumComments);
             btnLike = itemView.findViewById(R.id.btnLike);
-            profilePic = itemView.findViewById(R.id.ivProfileImage);
-            //btnComment = itemView.findViewById(R.id.btnComment);
             //add itemView's OnClickListener
             itemView.setOnClickListener(this);
-
-            ParseUser user = ParseUser.getCurrentUser();
-            ParseFile image = user.getParseFile(KEY_PROFILE_IMAGE);
-            if (image != null) {
-                Glide.with(context).load(image.getUrl()).into(profilePic);
-            }
         }
 
         @Override
@@ -124,8 +113,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvHandle.setText(post.getUser().getUsername());
             tvHandle2.setText(post.getUser().getUsername());
             tvTime.setText(getRelativeTimeAgo(String.valueOf(post.getCreatedAt())));
-            tvNumLikes.setText(Integer.toString(post.getNumLikes()));
-            tvNumComments.setText(Integer.toString(post.getNumComments()));
+            //tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+            JSONArray v = post.userLikes();
+            if (v != null) {
+                tvNumLikes.setText(Integer.toString(v.length()));
+            } else {
+                tvNumLikes.setText("0");
+            }
+            if(post.isLiked()) {
+                btnLike.setImageResource(R.drawable.ufi_heart_active);
+            } else {
+                btnLike.setImageResource(R.drawable.ufi_heart);
+            }
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
@@ -134,24 +133,44 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    btnLike.setImageResource(R.drawable.ufi_heart_active);
-                    int position = getAdapterPosition();
-                    Post post = posts.get(position);
+                    if (!post.isLiked()) {
+                        btnLike.setImageResource(R.drawable.ufi_heart_active);
+                        int position = getAdapterPosition();
+                        Post post = posts.get(position);
+                        int curLikes = post.getNumLikes();
+                        //add current user to list of users who liked this post
+                        post.likePost(ParseUser.getCurrentUser());
 
-                    int curLikes = post.getNumLikes();
-
-                    post.setNumLikes(curLikes  + 1);
-
-                    post.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(com.parse.ParseException e) {
-                            if (e != null) {
-                                e.printStackTrace();
-                                return;
+                        post.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(com.parse.ParseException e) {
+                                if (e != null) {
+                                    e.printStackTrace();
+                                    return;
+                                }
                             }
-                        }
-                    });
-                    notifyDataSetChanged();
+                        });
+                        notifyDataSetChanged();
+                    } else {
+                        btnLike.setImageResource(R.drawable.ufi_heart);
+                        int position = getAdapterPosition();
+                        Post post = posts.get(position);
+                        int curLikes = post.getNumLikes();
+                        //add current user to list of users who liked this post
+                        post.unlikePost(ParseUser.getCurrentUser());
+
+                        post.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(com.parse.ParseException e) {
+                                if (e != null) {
+                                    e.printStackTrace();
+                                    return;
+                                }
+                            }
+                        });
+                        notifyDataSetChanged();
+                    }
+
                 }
             });
         }

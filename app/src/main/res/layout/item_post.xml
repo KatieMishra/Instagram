@@ -10,15 +10,15 @@
         android:id="@+id/tvDetailsHandle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="324dp"
         android:layout_marginRight="324dp"
         android:text="User"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -29,20 +29,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHandle"
         app:srcCompat="@color/colorAccent" />
 
     <TextView
         android:id="@+id/tvDetailsCaption"
-        android:layout_width="327dp"
+        android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="Caption"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvDetailsHandle2"
-        app:layout_constraintTop_toBottomOf="@+id/btnComment" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsNumLikes" />
 
     <TextView
         android:id="@+id/tvDetailsHandle2"
@@ -62,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetailsHandle2" />
@@ -79,49 +78,15 @@
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
         app:srcCompat="@drawable/ufi_heart" />
 
-    <ImageButton
-        android:id="@+id/btnComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/solid_white"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailsNumLikes"
-        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage"
-        app:srcCompat="@drawable/ufi_comment" />
-
     <TextView
         android:id="@+id/tvDetailsNumLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/btnLike"
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage" />
-
-    <TextView
-        android:id="@+id/tvDetailsNumComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/btnComment"
-        app:layout_constraintTop_toBottomOf="@+id/ivDetailsImage" />
-
-    <ImageView
-        android:id="@+id/ivProfileImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[2]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
