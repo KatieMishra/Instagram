@@ -22,15 +22,15 @@ The following **stretch** features are implemented:
 - [x] Style the login page to look like the real Instagram login page.
 - [x] Style the feed to look like the real Instagram feed.
 - [x] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using a Bottom Navigation View.
-- [ ] User can load more posts once he or she reaches the bottom of the feed using infinite scrolling.
+- [x] User can load more posts once he or she reaches the bottom of the feed using infinite scrolling.
 - [x] Show the username and creation time for each post
-- [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
+- [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - User Profiles:
   - [ ] Allow the logged in user to add a profile photo
   - [ ] Display the profile photo with each post
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page
 - [ ] User can comment on a post and see all comments for each post in the post details screen.
-- [ ] User can like a post and see number of likes for each post in the post details screen.
+- [x] User can like a post and see number of likes for each post in the post details screen.
 - [ ] Create a custom Camera View on your phone.
 - [ ] Run your app on your phone and use the camera to take the photo
 
@@ -40,14 +40,14 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I'd like to discuss layout more as there were some design features that I had trouble fixing. 
+2. I'd also like to dicuss how to do the comments feature, as I wasn't able to get to that stretch feature. 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://g.recordit.co/6wWch8srv8.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
